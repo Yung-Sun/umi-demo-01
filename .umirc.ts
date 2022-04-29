@@ -9,10 +9,10 @@ export default defineConfig({
 		type: "none"
 	},
 	layout: {},
+	fastRefresh: {},
+	mfsu: {},
 	routes,
 	dva,
 	qiankun,
-	fastRefresh: {},
-	mfsu: {},
 	...config
 })

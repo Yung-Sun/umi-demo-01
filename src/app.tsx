@@ -1,5 +1,6 @@
 import { request as request2, RequestConfig } from "umi"
 import { requestConfig } from "../config/request"
+import { postJSON } from "../utils/request"
 
 // 请求的相关配置
 export const request: RequestConfig = requestConfig
@@ -23,14 +24,8 @@ export async function getInitialState() {
 	})
 	// 获取路由信息
 	const getRouterInfo = new Promise((resolve) => {
-		request2("training/v1/flow/training/part", {
-			method: "post",
-			data: JSON.stringify({
-				trainingResourceId: 204,
-				courseRole: "STUDENT"
-			}),
-			requestType: "json"
-		})
+		const params = { courseRole: "TEACHER", trainingResourceId: 204 }
+		postJSON("training/v1/flow/training/part", params)
 			.then((res) => {
 				const { data } = res
 				resolve({ routers: data })
@@ -54,4 +49,20 @@ export async function getInitialState() {
 		})
 	})
 	return InitialStateResult
+}
+
+// 从接口中获取子应用配置，export 出的 qiankun 变量是一个 promise
+export const qiankun = {
+	apps: [
+		{
+			name: "voucher1", // 唯一 id
+			entry: "http://192.168.2.154:7104", // html entry
+			props: {
+				msg: "Hello Qiankun",
+				fn1: () => {
+					console.log("fuck")
+				}
+			}
+		}
+	]
 }

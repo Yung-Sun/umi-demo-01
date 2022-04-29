@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { history, request, useModel } from "umi"
+import { history, useModel } from "umi"
 import { Button } from "antd"
 import styles from "./Publish.less"
+import { postJSON } from "../../../utils/request"
 
 import ReviewAnswerButton from "@/components/Publish/ReviewAnswerButton"
 import TeacherReviewSubmittedRecordButton from "@/components/Publish/TeacherReviewSubmittedRecordButton"
@@ -44,14 +45,11 @@ const Publish = () => {
 	const jumpTo = (url: string) => history.push(url)
 
 	useEffect(() => {
-		request("training/v1/flow/training/part/info", {
-			method: "post",
-			data: JSON.stringify({
-				trainingResourceId: 204,
-				part: "PUBLISH"
-			}),
-			requestType: "json"
-		}).then((res) => {
+		const params = {
+			trainingResourceId: 204,
+			part: "PUBLISH"
+		}
+		postJSON("training/v1/flow/training/part/info", params).then((res) => {
 			setComponentsList({ ...res.data.flowComponents })
 		})
 	}, [])

@@ -1,6 +1,6 @@
 export default function (initialState: any) {
 	const { role, routers = [] } = initialState
-	const routeRole = (foo: { access: string }) => routers.includes(foo.access)
+	const routeRole = (foo: { access: string } = { access: "" }) => routers.includes(foo.access)
 
 	return {
 		PUBLISH: true || ((foo: { access: string }) => routeRole(foo) && role === "TEACHER"),

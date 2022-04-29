@@ -1,4 +1,4 @@
-import { request as request2, RequestConfig } from "umi"
+import { RequestConfig } from "umi"
 import { requestConfig } from "../config/request"
 import { postJSON } from "../utils/request"
 
